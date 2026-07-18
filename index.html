@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankur Raj | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0f172a;color:#fff}
+header{position:fixed;top:0;width:100%;padding:20px 8%;display:flex;justify-content:space-between;background:#111827cc;backdrop-filter:blur(8px)}
+nav a{color:#fff;text-decoration:none;margin-left:20px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;padding:120px 8% 40px}
+.hero img{width:340px;height:340px;border-radius:50%;object-fit:cover;border:6px solid #38bdf8;box-shadow:0 0 30px #38bdf8}
+h1{font-size:58px} span{color:#38bdf8}
+.btn{display:inline-block;margin-top:20px;padding:12px 28px;background:#38bdf8;color:#fff;text-decoration:none;border-radius:30px}
+section{padding:80px 8%}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:#1e293b;border-radius:12px;padding:18px}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+footer{text-align:center;padding:30px;background:#020617}
+@media(max-width:900px){.hero{flex-direction:column-reverse;text-align:center}h1{font-size:42px}.hero img{width:250px;height:250px}}
+</style>
+</head>
+<body>
+<header><h2>Ankur Raj</h2><nav>
+<a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+</nav></header>
+
+<section class="hero">
+<div>
+<h3>Hello, I'm</h3>
+<h1><span>Ankur Raj</span></h1>
+<h3>Web Developer | Cloud & DevOps Enthusiast</h3>
+<p>I build responsive websites and learn AWS, Docker, Linux, Git, GitHub and Nginx.</p>
+<a class="btn" href="#contact">Contact Me</a>
+</div>
+<img src="img/profile.jpeg" alt="Profile">
+</section>
+
+<section id="about">
+<h2>About Me</h2>
+<p>I'm Ankur Raj from Chandigarh, India. I enjoy building web applications and deploying them on AWS EC2 using Linux, Docker and Nginx.</p>
+</section>
+
+<section id="skills">
+<h2>Skills</h2>
+<div class="cards">
+<div class="card">HTML</div><div class="card">CSS</div><div class="card">JavaScript</div>
+<div class="card">C++</div><div class="card">Linux</div><div class="card">AWS EC2</div>
+<div class="card">Docker</div><div class="card">Git & GitHub</div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="cards">
+<div class="card"><img src="img/project1.jpeg"><h3>Portfolio Website</h3><p>Responsive portfolio using HTML/CSS.</p></div>
+<div class="card"><img src="img/project2.jpeg"><h3>AWS Deployment</h3><p>Hosted on Ubuntu EC2 with Nginx.</p></div>
+<div class="card"><img src="img/programming.jpeg"><h3>Docker Project</h3><p>Containerized static website.</p></div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: akurrraj@gmail.com</p>
+<p>GitHub: https://github.com/ankur2905</p>
+<p>Location: Chandigarh, India</p>
+</section>
+
+<footer>© 2026 Ankur Raj</footer>
+</body></html>
