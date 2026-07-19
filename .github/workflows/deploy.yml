@@ -1,0 +1,29 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Ubuntu Server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ubuntu/ankur-website
+
+            git pull origin main
+
+            docker stop ankur-site || true
+            docker rm ankur-site || true
+
+            docker build -t ankur-website .
+
+            docker run -d --name ankur-site -p 80:80 ankur-website
