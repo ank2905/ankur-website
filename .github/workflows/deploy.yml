@@ -13,6 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Docker
+      - name: Build Docker image
+        run: |
+          docker build -t ankur-website .
+
+      - name: Run Docker container
         run: |
           docker run -d --name ankur-site -p 8080:80 ankur-website
