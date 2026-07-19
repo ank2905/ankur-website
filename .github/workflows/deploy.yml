@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
      steps:
-			- name: Checkout
-				uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-			- name: Deploy Docker
-				run: docker run -d --name ankur-site -p 8080:80 ankur-website
+      - name: Run Docker
+        run: |
+          docker run -d --name ankur-site -p 8080:80 ankur-website
 
 
