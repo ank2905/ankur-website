@@ -10,14 +10,10 @@ jobs:
 		runs-on: ubuntu-latest
 
 		steps:
-			- name: Deploy to Ubuntu Server
-				uses: appleboy/ssh-action@v1.2.0
-				with:
-					host: ${{ secrets.HOST }}
-					username: ubuntu
-					key: ${{ secrets.SSH_KEY }}
-					script: |
-						docker pull ankur-website
-						docker stop ankur-site || true
-						docker rm ankur-site || true
-						docker run -d --name ankur-site -p 8080:80 ankur-website
+			- name: Checkout
+				uses: actions/checkout@v4
+
+			- name: Deploy Docker
+				run: docker run -d --name ankur-site -p 8080:80 ankur-website
+        
+
