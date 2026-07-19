@@ -16,5 +16,3 @@ jobs:
       - name: Run Docker
         run: |
           docker run -d --name ankur-site -p 8080:80 ankur-website
-
-
