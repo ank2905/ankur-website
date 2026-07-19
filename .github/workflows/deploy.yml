@@ -13,10 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: |
-          docker build -t ankur-website .
-
-      - name: Run Docker container
-        run: |
-          docker run -d --name ankur-site -p 8080:80 ankur-website
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker stop ankur-site || true
+            docker rm ankur-site || true
+            docker build -t ankur-website .
+            docker run -d --name ankur-site -p 8080:80 ankur-website
