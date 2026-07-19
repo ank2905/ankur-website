@@ -26,4 +26,5 @@ jobs:
 
             docker build -t ankur-website .
 
-            docker run -d --name ankur-site -p 80:80 ankur-website
+            docker run -d --name ankur-site -p 8080:80 ankur-website
+            
