@@ -1,12 +1,27 @@
- name: Deploy to EC2
-  uses: appleboy/ssh-action@v1.0.3
-  with:
-    host: ${{ secrets.HOST }}
-    username: ${{ secrets.USERNAME }}
-    key: ${{ secrets.SSH_KEY }}
-    port: 22
-    script: |
-      docker stop ankur-site || true
-      docker rm ankur-site || true
-      docker build -t ankur-website .
-      docker run -d --name ankur-site -p 8080:80 ankur-website
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            docker stop ankur-site || true
+            docker rm ankur-site || true
+            docker build -t ankur-website .
+            docker run -d --name ankur-site -p 8080:80 ankur-website
