@@ -1,1 +1,36 @@
+name: Deploy Website
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Copy project to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          username: ${{ secrets.EC2_USERNAME }}
+          source: "."
+          target: "/home/ubuntu/ankur-website"
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+           host: ${{ secrets.EC2_HOST }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          username: ${{ secrets.EC2_USERNAME }}
+          script: |
+            cd /home/ubuntu/ankur-website
+            docker stop ankur-site || true
+            docker rm ankur-site || true
+            docker build -t ankur-website .
+            docker run -d --name ankur-site --restart unless-stopped -p 8080:80 ankur-website
