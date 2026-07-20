@@ -20,29 +20,18 @@ jobs:
 					host: ${{ secrets.EC2_HOST }}
 					username: ${{ secrets.EC2_USER }}
 					key: ${{ secrets.EC2_SSH_KEY }}
-					port: 22
 					source: "."
 					target: "/home/ubuntu/ankur-website"
 
-			- name: Deploy using Docker
+			- name: Deploy to EC2
 				uses: appleboy/ssh-action@v1.0.3
 				with:
 					host: ${{ secrets.EC2_HOST }}
 					username: ${{ secrets.EC2_USER }}
 					key: ${{ secrets.EC2_SSH_KEY }}
-					port: 22
 					script: |
 						cd /home/ubuntu/ankur-website
-
 						docker stop ankur-site || true
 						docker rm ankur-site || true
-
 						docker build -t ankur-website .
-
-						docker run -d \
-							--name ankur-site \
-							--restart unless-stopped \
-							-p 80:80 \
-							ankur-website
-
-
+						docker run -d --name ankur-site --restart unless-stopped -p 80:80 ankur-website
