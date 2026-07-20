@@ -1,44 +1,45 @@
 name: Deploy Website
 
 on:
-  push:
-    branches:
-      - main
+	push:
+		branches:
+			- main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+	deploy:
+		runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+		steps:
+			- name: Checkout Repository
+				uses: actions/checkout@v4
 
-      - name: Copy project to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "."
-          target: "/home/ubuntu/ankur-website"
+			- name: Copy project to EC2
+				uses: appleboy/scp-action@v0.1.7
+				with:
+					host: ${{ secrets.e2_HOST }}
+					username: ${{ secrets.USERNAME }}
+					key: ${{ secrets.SSH_KEY }}
+					source: "."
+					target: "/home/ubuntu/ankur-website"
 
-      - name: Build and Run Docker on EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script: |
-            cd /home/ubuntu/ankur-website
+			- name: Build and Run Docker on EC2
+				uses: appleboy/ssh-action@v1.0.3
+				with:
+					host: ${{ secrets.EC2_HOST }}
+					username: ${{ secrets.EC2_USERNAME }}
+					key: ${{ secrets.EC2_SSH_KEY }}
+					port: 22
+					script: |
+						cd /home/ubuntu/ankur-website
 
-            docker stop ankur-site || true
-            docker rm ankur-site || true
+						docker stop ankur-site || true
+						docker rm ankur-site || true
 
-            docker build -t ankur-website .
+						docker build -t ankur-website .
 
-            docker run -d \
-              --name ankur-site \
-              --restart unless-stopped \
-              -p 80:80 \
-              ankur-website
+						docker run -d \
+							--name ankur-site \
+							--restart unless-stopped \
+							-p 80:80 \
+							ankur-website
+
